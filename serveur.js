@@ -1,13 +1,15 @@
-const express = require('express')
+const express = require('express');
+const path = require('path');
 const app = express();
 const server = require('http').createServer(app);
-const io = require('socket.io').listen(server);
-
+const io = require('socket.io')(server);
+const port = process.env.PORT||7000
 let serverDie
 let arr = []
-app.use(express.static("asset"))
+app.use(express.static(__dirname+'/dist'));
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    // res.sendFile(path.resolve(__dirname , '/index.html'))
+    res.sendfile('index.html')
 });
 
 
@@ -53,4 +55,6 @@ io.on('connection', socket => {
     });
 })
 
-server.listen(process.env.Port)
+server.listen(port,()=>{
+    console.log(port)
+})
