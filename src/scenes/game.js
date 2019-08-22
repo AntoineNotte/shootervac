@@ -26,7 +26,7 @@ class GameScene extends Scene {
     create() {
 
                                                        //SOCKET 
-        socket = io(`${location.hostname}:8085`);
+        socket = io(process.env.Port);
         username = prompt('Pseudo');
         
       // emit d'un tableau input avec score et username
