@@ -8,9 +8,7 @@
 
   },
   "scripts": {
-    "build": "webpack --config webpack/prod.js ",
-     "start": "node serveur.js", 
-     "heroku-postbuild": "webpack -p"
+     "start": "node serveur.js"
   },
 
   "repository": {
