@@ -105,7 +105,7 @@ class GameScene extends Scene {
 
  
      
-      
+      scoreLabel= this.add.text(680, 710,'Score:0000', { fontSize: '32px', fill: '#000' });
                                 //Actions 
 
      // fonction qui crée les groupes d'animaux et les anime pendant le jeu et à leur mort
@@ -155,7 +155,6 @@ class GameScene extends Scene {
               })
             })
           }
-          scoreLabel= this.add.text(680, 710, { fontSize: '32px', fill: '#000' });
         // création de la physique de chaque membre du groupe + vitesse aléatoire pour chaque
         target.children.iterate(function (child) {
           child.setVelocityX(Phaser.Math.Between(0, 200), 20);
@@ -166,22 +165,17 @@ class GameScene extends Scene {
       
         // création d'un évenement quand on clique sur les animaux 
           child.on('pointerdown', function (pointer) {
-              
+     
+              this.disableBody(true, true)
+            /*Recupération son et score dans le tableau*/ 
             let find = character.find((value) => value.name == name)
-            this.disableBody(true,true)
-            let scoreAff=(score+=find.score);
-            console.log(scoreAff)
-            scoreLabel.setText(scoreAff)
-            //   this.disableBody(true, true)
-            // /*Recupération son et score dans le tableau*/ 
-            // let find = character.find((value) => value.name == name)
-            //  find.sound.play();
-            //  let scoreAff= (score += find.score);
-            //  scoreLabel.setText('Score: ' + scoreAff);
-            //   socket.emit("Scored", {
-            //   username,
-            //   score
-            // })
+             find.sound.play();
+             let scoreAff= (score += find.score);
+             scoreLabel.setText('Score: ' + scoreAff);
+              socket.emit("Scored", {
+              username,
+              score
+            })
            
           });
         });
